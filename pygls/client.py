@@ -135,7 +135,7 @@ class JsonRPCClient:
 
         self._async_tasks.extend([connection])
 
-    async def start_ws(self, host: str, port: int, additional_headers: dict[str, str] = {}):
+    async def start_ws(self, uri: str, additional_headers: dict[str, str] = {}):
         """Start communicating with a server over WebSockets."""
 
         try:
@@ -146,7 +146,6 @@ class JsonRPCClient:
             )
             sys.exit(1)
 
-        uri = f"ws://{host}:{port}"
         websocket = await connect(uri, additional_headers=additional_headers)
         connection = asyncio.create_task(
             run_websocket(
